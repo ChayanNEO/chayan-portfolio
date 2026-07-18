@@ -1,0 +1,42 @@
+.education-list {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.education-item {
+  padding: 26px 28px;
+}
+
+.education-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.education-heading h3 {
+  font-size: 1.1rem;
+}
+
+.education-period {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.education-institution {
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.education-details {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
