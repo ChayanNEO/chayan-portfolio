@@ -45,12 +45,10 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 body {
   margin: 0;
-  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -94,6 +92,10 @@ img, svg {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 24px;
+}
+
+main {
+  overflow-x: hidden;
 }
 
 .section {
