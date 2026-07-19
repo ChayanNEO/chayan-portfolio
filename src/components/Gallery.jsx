@@ -4,15 +4,22 @@ import './Gallery.css'
 
 const AUTO_ADVANCE_MS = 2600
 const AUTO_ADVANCE_RESUME_DELAY_MS = 3200
-const VISIBLE_DEPTH = 2
+const VISIBLE_DEPTH = 3
 const SWIPE_THRESHOLD_PX = 50
 const WHEEL_COOLDOWN_MS = 450
+const MAX_DOTS = 7
 
 function getCircularOffset(index, center, total) {
   let diff = (index - center) % total
   if (diff > total / 2) diff -= total
   if (diff < -total / 2) diff += total
   return diff
+}
+
+function nearestIndex(candidates, center, total) {
+  return candidates.reduce((best, idx) =>
+    Math.abs(getCircularOffset(idx, center, total)) < Math.abs(getCircularOffset(best, center, total)) ? idx : best,
+  )
 }
 
 function Gallery() {
@@ -169,6 +176,14 @@ function Gallery() {
 
   const active = activeIndex !== null ? photos[activeIndex] : null
 
+  const photoIndices = gallery.reduce((acc, item, idx) => {
+    if (item.imageUrl) acc.push(idx)
+    return acc
+  }, [])
+  const dotStep = Math.max(1, Math.ceil(photoIndices.length / MAX_DOTS))
+  const dotIndices = photoIndices.filter((_, i) => i % dotStep === 0)
+  const activeDotIndex = dotIndices.length > 0 ? nearestIndex(dotIndices, centerIndex, total) : null
+
   return (
     <section id="gallery" className="section section-alt">
       <div className="container">
@@ -213,7 +228,7 @@ function Gallery() {
                 aria-hidden={!visible}
                 style={{
                   transform: `translate(-50%, -50%) translateX(calc(${offset} * var(--coverflow-step))) translateZ(${dist * -110}px) rotateY(${offset === 0 ? 0 : offset > 0 ? -36 : 36}deg) scale(${Math.max(1 - dist * 0.16, 0.4)})`,
-                  opacity: visible ? [1, 0.75, 0.4][dist] : 0,
+                  opacity: visible ? [1, 0.85, 0.6, 0.35][dist] : 0,
                   zIndex: total - dist,
                   filter: dist >= 1 ? `blur(${dist * 0.6}px)` : 'none',
                   pointerEvents: visible ? 'auto' : 'none',
@@ -228,7 +243,6 @@ function Gallery() {
                     <span>Add image</span>
                   </div>
                 )}
-                <span className="gallery-index">{String(idx + 1).padStart(2, '0')}</span>
                 <span className="gallery-caption">
                   <span className="gallery-caption-dot" />
                   {item.caption}
@@ -238,14 +252,14 @@ function Gallery() {
           })}
         </div>
 
-        {total > 1 && (
+        {dotIndices.length > 1 && (
           <div className="gallery-dots">
-            {gallery.map((item, idx) => (
+            {dotIndices.map((idx) => (
               <button
                 type="button"
-                key={item.caption + idx}
-                className={`gallery-dot ${idx === centerIndex ? 'is-active' : ''}`}
-                aria-label={`Show ${item.caption}`}
+                key={gallery[idx].caption + idx}
+                className={`gallery-dot ${idx === activeDotIndex ? 'is-active' : ''}`}
+                aria-label={`Show ${gallery[idx].caption}`}
                 onClick={() => {
                   pauseAutoAdvance()
                   goTo(idx)

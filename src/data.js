@@ -132,15 +132,15 @@ export const creativeWork = {
       venue: 'Sister Nivedita University, Kolkata', // TODO: replace
       description: 'Secured 2nd Runners Up in the Battle of Bands', // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
-      mediaUrl: null, // TODO: add a YouTube/Instagram link or local file path
+      mediaUrl: 'https://youtu.be/JJFL3_knpE8', // TODO: add a YouTube/Instagram link or local file path
     },
     {
-      title: "Login 2025", // TODO: replace
+      title: "Login 2026", // TODO: replace
       band: 'STOTRAM', // TODO: replace with your band's name, or set to null if not applicable
       venue: 'Bhawanipur Global Campus, Kolkata', // TODO: replace
       description:"A music fest organized by a music institution, where I performed as a drummer with their students' band.", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
-      mediaUrl: null, // TODO: add a YouTube/Instagram link or local file path
+      mediaUrl: 'https://youtu.be/bYLPGoGXKv8', // TODO: add a YouTube/Instagram link or local file path
     },
     {
       title: 'MU-TEC, Musical Program', // TODO: replace
@@ -148,39 +148,47 @@ export const creativeWork = {
       venue: 'Sarat Sadan, Kolkata', // TODO: replace
       description: "A music fest organized by a music institution, where I performed as a drummer with their students' band.", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
-      mediaUrl: null, // TODO: add an image path or link
+      mediaUrl: 'https://youtu.be/PuiCJ0IVO58', // TODO: add an image path or link
     },
     {
-      title: "Jagriti 2025 ", // TODO: replace
-      band: 'PROJECT_DRISHTI', // TODO: replace with your band's name, or set to null if not applicable
+      title: "Jagriti 2026 ", // TODO: replace
+      band: "PROJECT DRISHTI", // TODO: replace with your band's name, or set to null if not applicable
       venue: 'Government College of Engineering and Ceramic Technology, Kolkata', // TODO: replace
       description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
-      mediaUrl: null, // TODO: add an image path or link
+      mediaUrl: 'https://youtu.be/Vvesv8BMS7Y', // TODO: add an image path or link
     },
     {
       title: 'Ecstasia 2026', // TODO: replace
-      band: 'PROJECT_DRISHTI', // TODO: replace with your band's name, or set to null if not applicable
+      band: "PROJECT DRISHTI", // TODO: replace with your band's name, or set to null if not applicable
       venue: 'University of Engineering & Management, Kolkata (UEM), Kolkata', // TODO: replace
       description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
-      mediaUrl: null, // TODO: add an image path or link
+      mediaUrl: 'https://youtu.be/kQn7fY2ShJQ', // TODO: add an image path or link
     },
     {
       title: 'Umang 2025', // TODO: replace
-      band: 'COLLEGE_BAND', // TODO: replace with your band's name, or set to null if not applicable
+      band: "COLLEGE BAND", // TODO: replace with your band's name, or set to null if not applicable
       venue: 'The Bhawanipur Education Society College, Kolkata', // TODO: replace
       description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
-      mediaUrl: 'https://youtu.be/h5w4ucQSa6s?si=DlcXa_vcPLWR2I6v',
+      mediaUrl: 'https://youtu.be/HI9F4p0jFr4',
     },
     {
-      title: 'Advaya 2025', // TODO: replace
-      band: 'DNA', // TODO: replace with your band's name, or set to null if not applicable
+      title: 'Footprint 2025, Freshers', // TODO: replace
+      band: "Project Drishti", // TODO: replace with your band's name, or set to null if not applicable
       venue: 'Meghnad Saha Institute of Technology', // TODO: replace
       description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
-      mediaUrl: '',
+      mediaUrl: 'https://youtu.be/VmZQSwqPGIU',
+    },
+   {
+      title: 'Ecstasy 2026', // TODO: replace
+      band: "Project Drishti", // TODO: replace with your band's name, or set to null if not applicable
+      venue: 'Heritage Institute of Technology', // TODO: replace
+      description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
+      mediaType: 'video', // 'video' or 'photo'
+      mediaUrl: 'https://youtu.be/DezJfdVpsuk',
     },
   ],
 }
@@ -188,28 +196,94 @@ export const creativeWork = {
 export const gallery = [
   {
     caption: 'ADVAYA 2025', // TODO: replace with a short caption
-    imageUrl: '/gallery/dna.jpeg',
+    imageUrl: '/gallery/Advaya.jpeg',
   },
   {
-    caption: 'IONIANS', // TODO: replace
-    imageUrl: '/gallery/ionians.jpeg',
+    caption: 'MUTEC FEST', // TODO: replace with a short caption
+    imageUrl: '/gallery/MUTEC.jpeg',
   },
   {
-    caption: 'Event photo 3', // TODO: replace
-    imageUrl: '/gallery/dna_2.jpeg', // TODO: add image path
+    caption: 'MUTEC FEST', // TODO: replace with a short caption
+    imageUrl: '/gallery/MUTEC_grp.jpeg',
   },
   {
-    caption: 'Event photo 4', // TODO: replace
-    imageUrl: null, // TODO: add image path
+    caption: 'RCMSIT ORIENTATION', // TODO: replace with a short caption
+    imageUrl: '/gallery/STOTRAM.jpeg',
   },
   {
-    caption: 'Event photo 5', // TODO: replace
-    imageUrl: '/gallery/stotram_1.jpeg', // TODO: add image path
+    caption: 'SOCIETY PROGRAM', // TODO: replace with a short caption
+    imageUrl: '/gallery/stotram_1.jpeg',
   },
   {
-    caption: 'Event photo 6', // TODO: replace
-    imageUrl: null, // TODO: add image path
+    caption: 'SOCIETY PROGRAM', // TODO: replace with a short caption
+    imageUrl: '/gallery/stotram_2.jpeg',
   },
+  {
+    caption: 'SNU', // TODO: replace with a short caption
+    imageUrl: '/gallery/snu.jpeg',
+  },
+  {
+    caption: 'Wall Magazine 0f Hashtag Club', // TODO: replace with a short caption
+    imageUrl: '/gallery/hashtag.jpeg',
+  },
+  {
+    caption: 'STOTRAM', // TODO: replace with a short caption
+    imageUrl: '/gallery/msit_2.jpeg',
+  },
+  {
+    caption: "St. Xavier's Battle of Bands", // TODO: replace with a short caption
+    imageUrl: '/gallery/xaviers.jpeg',
+  },
+  {
+    caption: "St. Xavier's Battle of Bands", // TODO: replace with a short caption
+    imageUrl: '/gallery/xaviers_1.jpeg',
+  },
+  {
+    caption: "Me", // TODO: replace with a short caption
+    imageUrl: '/gallery/Drummer.jpeg',
+  },
+  {
+    caption: "NSHM", // TODO: replace with a short caption
+    imageUrl: '/gallery/nshm.jpeg',
+  },
+  {
+    caption: "Footprint, Freshers", // TODO: replace with a short caption
+    imageUrl: '/gallery/freshers.jpeg',
+  },
+  {
+    caption: "St. Xaveier's Battle of Bands", // TODO: replace with a short caption
+    imageUrl: '/gallery/xaviers_2.jpeg',
+  },
+  {
+    caption: "Footprint, Freshers", // TODO: replace with a short caption
+    imageUrl: '/gallery/freshers_1.jpeg',
+  },
+  {
+    caption: "Footprint, Freshers", // TODO: replace with a short caption
+    imageUrl: '/gallery/freshers_2.jpeg',
+  },
+  {
+    caption: "Jagriti Fest", // TODO: replace with a short caption
+    imageUrl: '/gallery/jagriti.jpeg',
+  },
+  {
+    caption: "UEM", // TODO: replace with a short caption
+    imageUrl: '/gallery/uem.jpeg',
+  },
+  {
+    caption: "Heritage", // TODO: replace with a short caption
+    imageUrl: '/gallery/heritage.jpeg',
+  },
+  {
+    caption: "Heritage", // TODO: replace with a short caption
+    imageUrl: '/gallery/heritage_1.jpeg',
+  },
+  {
+    caption: "UEM", // TODO: replace with a short caption
+    imageUrl: '/gallery/uem_1.jpeg',
+  },
+
+
 ]
 
 export const education = [
