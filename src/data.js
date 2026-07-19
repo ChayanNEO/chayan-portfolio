@@ -127,16 +127,18 @@ export const creativeWork = {
   ],
   performances: [
     {
-      title: 'Performance / Track Title 1', // TODO: replace
-      venue: 'Venue / Event / Release name', // TODO: replace
-      description: 'Short description — instrument, genre, or story behind this performance.', // TODO: replace
+      title: 'Band Competition', // TODO: replace
+      band: 'Stotram', // TODO: replace with your band's name, or set to null if not applicable
+      venue: 'SNU, Kolkata', // TODO: replace
+      description: 'Secured 2nd Runners Up in the Band Competition, Renaissance 3.0, 2025.', // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
       mediaUrl: null, // TODO: add a YouTube/Instagram link or local file path
     },
     {
-      title: 'Performance / Track Title 2', // TODO: replace
-      venue: 'Venue / Event / Release name', // TODO: replace
-      description: 'Short description — instrument, genre, or story behind this performance.', // TODO: replace
+      title: 'MU-TEC, Musical Program', // TODO: replace
+      band: null, // TODO: replace with your band's name, or set to null if not applicable
+      venue: 'Sarat Sadan, Kolkata', // TODO: replace
+      description: "A music fest organized by a music institution, where I performed as a drummer with their students' band.", // TODO: replace
       mediaType: 'photo', // 'video' or 'photo'
       mediaUrl: null, // TODO: add an image path or link
     },

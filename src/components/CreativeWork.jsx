@@ -53,6 +53,7 @@ function CreativeWork() {
                 </div>
                 <div className="creative-card-body">
                   <h4>{item.title}</h4>
+                  {item.band && <span className="creative-band">{item.band}</span>}
                   <span className="creative-meta">{item.venue}</span>
                   <p>{item.description}</p>
                 </div>
