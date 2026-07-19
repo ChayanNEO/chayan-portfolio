@@ -127,19 +127,51 @@ export const creativeWork = {
   ],
   performances: [
     {
-      title: 'Band Competition', // TODO: replace
-      band: 'Stotram', // TODO: replace with your band's name, or set to null if not applicable
-      venue: 'SNU, Kolkata', // TODO: replace
-      description: 'Secured 2nd Runners Up in the Band Competition, Renaissance 3.0, 2025.', // TODO: replace
+      title: 'Renaissance 3.0, 2025', // TODO: replace
+      band: 'STOTRAM', // TODO: replace with your band's name, or set to null if not applicable
+      venue: 'Sister Nivedita University, Kolkata', // TODO: replace
+      description: 'Secured 2nd Runners Up in the Battle of Bands', // TODO: replace
+      mediaType: 'video', // 'video' or 'photo'
+      mediaUrl: null, // TODO: add a YouTube/Instagram link or local file path
+    },
+    {
+      title: 'Login, 2025', // TODO: replace
+      band: 'STOTRAM', // TODO: replace with your band's name, or set to null if not applicable
+      venue: 'Bhawanipur Global Campus, Kolkata', // TODO: replace
+      description: 'Secured 2nd Runners Up in the Battle of Bands', // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
       mediaUrl: null, // TODO: add a YouTube/Instagram link or local file path
     },
     {
       title: 'MU-TEC, Musical Program', // TODO: replace
-      band: null, // TODO: replace with your band's name, or set to null if not applicable
+      band: 'IONIANS', // TODO: replace with your band's name, or set to null if not applicable
       venue: 'Sarat Sadan, Kolkata', // TODO: replace
       description: "A music fest organized by a music institution, where I performed as a drummer with their students' band.", // TODO: replace
-      mediaType: 'photo', // 'video' or 'photo'
+      mediaType: 'video', // 'video' or 'photo'
+      mediaUrl: null, // TODO: add an image path or link
+    },
+    {
+      title: 'Jagriti`25 Fest', // TODO: replace
+      band: 'PROJECT_DRISHTI', // TODO: replace with your band's name, or set to null if not applicable
+      venue: 'Government College of Engineering and Ceramic Technology, Kolkata', // TODO: replace
+      description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
+      mediaType: 'video', // 'video' or 'photo'
+      mediaUrl: null, // TODO: add an image path or link
+    },
+    {
+      title: 'Ecstasia 26', // TODO: replace
+      band: 'PROJECT_DRISHTI', // TODO: replace with your band's name, or set to null if not applicable
+      venue: 'University of Engineering & Management, Kolkata (UEM), Kolkata', // TODO: replace
+      description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
+      mediaType: 'video', // 'video' or 'photo'
+      mediaUrl: null, // TODO: add an image path or link
+    },
+    {
+      title: 'Umang 25', // TODO: replace
+      band: 'COLLEGE_BAND', // TODO: replace with your band's name, or set to null if not applicable
+      venue: 'The Bhawanipur Education Society College, Kolkata', // TODO: replace
+      description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
+      mediaType: 'video', // 'video' or 'photo'
       mediaUrl: null, // TODO: add an image path or link
     },
   ],
