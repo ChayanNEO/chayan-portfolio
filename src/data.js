@@ -177,6 +177,33 @@ export const creativeWork = {
   ],
 }
 
+export const gallery = [
+  {
+    caption: 'Event photo 1', // TODO: replace with a short caption
+    imageUrl: null, // TODO: add image path, e.g. '/gallery/event-1.jpg'
+  },
+  {
+    caption: 'Event photo 2', // TODO: replace
+    imageUrl: null, // TODO: add image path
+  },
+  {
+    caption: 'Event photo 3', // TODO: replace
+    imageUrl: null, // TODO: add image path
+  },
+  {
+    caption: 'Event photo 4', // TODO: replace
+    imageUrl: null, // TODO: add image path
+  },
+  {
+    caption: 'Event photo 5', // TODO: replace
+    imageUrl: null, // TODO: add image path
+  },
+  {
+    caption: 'Event photo 6', // TODO: replace
+    imageUrl: null, // TODO: add image path
+  },
+]
+
 export const education = [
   {
     degree: 'Bachelor of Computer Applications (BCA)',
