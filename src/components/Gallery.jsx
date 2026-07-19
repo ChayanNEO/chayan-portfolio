@@ -30,9 +30,12 @@ function Gallery() {
           <p className="section-subtitle">
             A few snapshots from the events, performances, and communities I've been part of.
           </p>
+          <p className="gallery-hint">Drag or scroll to explore &#8594;</p>
         </div>
+      </div>
 
-        <div className="gallery-grid">
+      <div className="gallery-strip-wrapper">
+        <div className="gallery-strip">
           {gallery.map((item) => (
             <button
               type="button"
