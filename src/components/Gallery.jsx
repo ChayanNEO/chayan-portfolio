@@ -2,16 +2,53 @@ import { useEffect, useRef, useState } from 'react'
 import { gallery } from '../data'
 import './Gallery.css'
 
+const AUTO_ADVANCE_MS = 2600
+const AUTO_ADVANCE_RESUME_DELAY_MS = 3200
+const VISIBLE_DEPTH = 2
+const SWIPE_THRESHOLD_PX = 50
+const WHEEL_COOLDOWN_MS = 450
+
+function getCircularOffset(index, center, total) {
+  let diff = (index - center) % total
+  if (diff > total / 2) diff -= total
+  if (diff < -total / 2) diff += total
+  return diff
+}
+
 function Gallery() {
   const photos = gallery.filter((item) => item.imageUrl)
-  const [activeIndex, setActiveIndex] = useState(null)
-  const [dragging, setDragging] = useState(false)
-  const [scrubbing, setScrubbing] = useState(false)
-  const [progress, setProgress] = useState(0)
+  const total = gallery.length
 
-  const stripRef = useRef(null)
-  const trackRef = useRef(null)
-  const pointerRef = useRef({ startX: 0, startScroll: 0, moved: false })
+  const [centerIndex, setCenterIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(null)
+
+  const containerRef = useRef(null)
+  const pointerRef = useRef({ startX: 0, active: false, moved: false })
+  const interactionPausedRef = useRef(false)
+  const outOfViewRef = useRef(true)
+  const resumeTimerRef = useRef(null)
+  const lastWheelRef = useRef(0)
+
+  const step = (delta) => {
+    setCenterIndex((i) => ((i + delta) % total + total) % total)
+  }
+
+  const goTo = (index) => setCenterIndex(index)
+
+  const pauseAutoAdvance = () => {
+    interactionPausedRef.current = true
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current)
+      resumeTimerRef.current = null
+    }
+  }
+
+  const scheduleAutoAdvanceResume = () => {
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+    resumeTimerRef.current = setTimeout(() => {
+      interactionPausedRef.current = false
+    }, AUTO_ADVANCE_RESUME_DELAY_MS)
+  }
 
   useEffect(() => {
     if (activeIndex === null || photos.length === 0) return undefined
@@ -27,85 +64,107 @@ function Gallery() {
   }, [activeIndex, photos.length])
 
   useEffect(() => {
-    const strip = stripRef.current
-    if (!strip) return undefined
+    const container = containerRef.current
+    if (!container || total <= 1) return undefined
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        outOfViewRef.current = !entry.isIntersecting
+      },
+      { threshold: 0.2 },
+    )
+    observer.observe(container)
+
+    const id = setInterval(() => {
+      if (interactionPausedRef.current || outOfViewRef.current || document.hidden) return
+      step(1)
+    }, AUTO_ADVANCE_MS)
+
+    return () => {
+      clearInterval(id)
+      observer.disconnect()
+    }
+  }, [total])
+
+  useEffect(() => {
+    if (activeIndex !== null) {
+      pauseAutoAdvance()
+    } else {
+      scheduleAutoAdvanceResume()
+    }
+  }, [activeIndex])
+
+  useEffect(() => () => {
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+  }, [])
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return undefined
 
     const onWheel = (e) => {
       if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return
-
-      const atStart = strip.scrollLeft <= 0
-      const atEnd = strip.scrollLeft >= strip.scrollWidth - strip.clientWidth - 1
-      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return
-
       e.preventDefault()
-      strip.scrollLeft += e.deltaY
+
+      const now = performance.now()
+      if (now - lastWheelRef.current < WHEEL_COOLDOWN_MS) return
+      lastWheelRef.current = now
+
+      pauseAutoAdvance()
+      step(e.deltaY > 0 ? 1 : -1)
+      scheduleAutoAdvanceResume()
     }
 
-    strip.addEventListener('wheel', onWheel, { passive: false })
-    return () => strip.removeEventListener('wheel', onWheel)
+    container.addEventListener('wheel', onWheel, { passive: false })
+    return () => container.removeEventListener('wheel', onWheel)
   }, [])
 
-  const updateProgress = () => {
-    const strip = stripRef.current
-    if (!strip) return
-    const max = strip.scrollWidth - strip.clientWidth
-    setProgress(max > 0 ? strip.scrollLeft / max : 0)
+  const handlePointerDown = (e) => {
+    containerRef.current?.setPointerCapture(e.pointerId)
+    pointerRef.current = { startX: e.clientX, active: true, moved: false }
+    pauseAutoAdvance()
   }
 
-  const handleStripPointerDown = (e) => {
-    const strip = stripRef.current
-    strip.setPointerCapture(e.pointerId)
-    pointerRef.current = { startX: e.clientX, startScroll: strip.scrollLeft, moved: false }
-    setDragging(true)
+  const handlePointerMove = (e) => {
+    if (!pointerRef.current.active) return
+    if (Math.abs(e.clientX - pointerRef.current.startX) > 4) pointerRef.current.moved = true
   }
 
-  const handleStripPointerMove = (e) => {
-    if (!dragging) return
-    const strip = stripRef.current
+  const endDrag = (e) => {
+    if (!pointerRef.current.active) return
     const dx = e.clientX - pointerRef.current.startX
-    if (Math.abs(dx) > 4) pointerRef.current.moved = true
-    strip.scrollLeft = pointerRef.current.startScroll - dx
-    updateProgress()
+    pointerRef.current.active = false
+    if (containerRef.current?.hasPointerCapture(e.pointerId)) {
+      containerRef.current.releasePointerCapture(e.pointerId)
+    }
+    if (Math.abs(dx) > SWIPE_THRESHOLD_PX) step(dx < 0 ? 1 : -1)
+    scheduleAutoAdvanceResume()
   }
 
-  const endStripDrag = (e) => {
-    setDragging(false)
-    if (stripRef.current?.hasPointerCapture(e.pointerId)) {
-      stripRef.current.releasePointerCapture(e.pointerId)
+  const handleContainerKeyDown = (e) => {
+    if (activeIndex !== null) return
+    if (e.key === 'ArrowRight') {
+      pauseAutoAdvance()
+      step(1)
+      scheduleAutoAdvanceResume()
+    }
+    if (e.key === 'ArrowLeft') {
+      pauseAutoAdvance()
+      step(-1)
+      scheduleAutoAdvanceResume()
     }
   }
 
-  const handleItemClick = (item) => {
+  const handleItemClick = (item, idx) => {
     if (pointerRef.current.moved) return
-    if (item.imageUrl) setActiveIndex(photos.indexOf(item))
-  }
-
-  const scrubToClientX = (clientX) => {
-    const strip = stripRef.current
-    const track = trackRef.current
-    if (!strip || !track) return
-    const rect = track.getBoundingClientRect()
-    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width))
-    strip.scrollLeft = ratio * (strip.scrollWidth - strip.clientWidth)
-    setProgress(ratio)
-  }
-
-  const handleTrackPointerDown = (e) => {
-    e.currentTarget.setPointerCapture(e.pointerId)
-    setScrubbing(true)
-    scrubToClientX(e.clientX)
-  }
-
-  const handleTrackPointerMove = (e) => {
-    if (!scrubbing) return
-    scrubToClientX(e.clientX)
-  }
-
-  const endTrackScrub = (e) => {
-    setScrubbing(false)
-    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-      e.currentTarget.releasePointerCapture(e.pointerId)
+    if (idx === centerIndex) {
+      if (item.imageUrl) setActiveIndex(photos.indexOf(item))
+      return
     }
+    pauseAutoAdvance()
+    goTo(idx)
+    scheduleAutoAdvanceResume()
   }
 
   const active = activeIndex !== null ? photos[activeIndex] : null
@@ -119,54 +178,83 @@ function Gallery() {
           <p className="section-subtitle">
             A few snapshots from the events, performances, and communities I've been part of.
           </p>
-          <p className="gallery-hint">Drag, scroll, or wheel to explore &#8594;</p>
+          <p className="gallery-hint">
+            Rotates automatically — click a photo to bring it forward, hover to read its caption &#8594;
+          </p>
         </div>
       </div>
 
-      <div className="gallery-strip-wrapper">
+      <div className="gallery-coverflow-wrapper">
+        <div className="gallery-glow" aria-hidden="true" />
         <div
-          className={`gallery-strip ${dragging ? 'is-dragging' : ''}`}
-          ref={stripRef}
-          onScroll={updateProgress}
-          onPointerDown={handleStripPointerDown}
-          onPointerMove={handleStripPointerMove}
-          onPointerUp={endStripDrag}
-          onPointerCancel={endStripDrag}
-          onPointerLeave={(e) => dragging && endStripDrag(e)}
+          className="gallery-coverflow"
+          ref={containerRef}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onPointerLeave={endDrag}
+          onMouseEnter={pauseAutoAdvance}
+          onMouseLeave={() => !pointerRef.current.active && scheduleAutoAdvanceResume()}
+          onKeyDown={handleContainerKeyDown}
         >
-          {gallery.map((item) => (
-            <button
-              type="button"
-              className={`gallery-item ${!item.imageUrl ? 'gallery-item-empty' : ''}`}
-              key={item.caption}
-              onClick={() => handleItemClick(item)}
-            >
-              {item.imageUrl ? (
-                <img src={item.imageUrl} alt={item.caption} loading="lazy" draggable={false} />
-              ) : (
-                <div className="gallery-placeholder">
-                  <PlaceholderIcon />
-                  <span>Add image</span>
-                </div>
-              )}
-              <span className="gallery-caption">{item.caption}</span>
-            </button>
-          ))}
-        </div>
-      </div>
+          {gallery.map((item, idx) => {
+            const offset = getCircularOffset(idx, centerIndex, total)
+            const dist = Math.abs(offset)
+            const visible = dist <= VISIBLE_DEPTH
+            const isCenter = offset === 0
 
-      <div className="container">
-        <div
-          className={`gallery-track ${scrubbing ? 'is-scrubbing' : ''}`}
-          ref={trackRef}
-          onPointerDown={handleTrackPointerDown}
-          onPointerMove={handleTrackPointerMove}
-          onPointerUp={endTrackScrub}
-          onPointerCancel={endTrackScrub}
-        >
-          <div className="gallery-track-fill" style={{ width: `${progress * 100}%` }} />
-          <div className="gallery-track-thumb" style={{ left: `${progress * 100}%` }} />
+            return (
+              <button
+                type="button"
+                className={`gallery-item ${!item.imageUrl ? 'gallery-item-empty' : ''} ${isCenter ? 'is-center' : ''}`}
+                key={item.caption + idx}
+                tabIndex={visible ? 0 : -1}
+                aria-hidden={!visible}
+                style={{
+                  transform: `translate(-50%, -50%) translateX(calc(${offset} * var(--coverflow-step))) translateZ(${dist * -110}px) rotateY(${offset === 0 ? 0 : offset > 0 ? -36 : 36}deg) scale(${Math.max(1 - dist * 0.16, 0.4)})`,
+                  opacity: visible ? [1, 0.75, 0.4][dist] : 0,
+                  zIndex: total - dist,
+                  filter: dist >= 1 ? `blur(${dist * 0.6}px)` : 'none',
+                  pointerEvents: visible ? 'auto' : 'none',
+                }}
+                onClick={() => handleItemClick(item, idx)}
+              >
+                {item.imageUrl ? (
+                  <img src={item.imageUrl} alt={item.caption} loading="lazy" draggable={false} />
+                ) : (
+                  <div className="gallery-placeholder">
+                    <PlaceholderIcon />
+                    <span>Add image</span>
+                  </div>
+                )}
+                <span className="gallery-index">{String(idx + 1).padStart(2, '0')}</span>
+                <span className="gallery-caption">
+                  <span className="gallery-caption-dot" />
+                  {item.caption}
+                </span>
+              </button>
+            )
+          })}
         </div>
+
+        {total > 1 && (
+          <div className="gallery-dots">
+            {gallery.map((item, idx) => (
+              <button
+                type="button"
+                key={item.caption + idx}
+                className={`gallery-dot ${idx === centerIndex ? 'is-active' : ''}`}
+                aria-label={`Show ${item.caption}`}
+                onClick={() => {
+                  pauseAutoAdvance()
+                  goTo(idx)
+                  scheduleAutoAdvanceResume()
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {active && (

@@ -174,21 +174,29 @@ export const creativeWork = {
       mediaType: 'video', // 'video' or 'photo'
       mediaUrl: 'https://youtu.be/h5w4ucQSa6s?si=DlcXa_vcPLWR2I6v',
     },
+    {
+      title: 'Advaya 2025', // TODO: replace
+      band: 'DNA', // TODO: replace with your band's name, or set to null if not applicable
+      venue: 'Meghnad Saha Institute of Technology', // TODO: replace
+      description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
+      mediaType: 'video', // 'video' or 'photo'
+      mediaUrl: '',
+    },
   ],
 }
 
 export const gallery = [
   {
-    caption: 'Event photo 1', // TODO: replace with a short caption
+    caption: 'ADVAYA 2025', // TODO: replace with a short caption
     imageUrl: '/gallery/dna.jpeg',
   },
   {
-    caption: 'Event photo 2', // TODO: replace
+    caption: 'IONIANS', // TODO: replace
     imageUrl: '/gallery/ionians.jpeg',
   },
   {
     caption: 'Event photo 3', // TODO: replace
-    imageUrl: null, // TODO: add image path
+    imageUrl: '/gallery/dna_2.jpeg', // TODO: add image path
   },
   {
     caption: 'Event photo 4', // TODO: replace
@@ -196,7 +204,7 @@ export const gallery = [
   },
   {
     caption: 'Event photo 5', // TODO: replace
-    imageUrl: null, // TODO: add image path
+    imageUrl: '/gallery/stotram_1.jpeg', // TODO: add image path
   },
   {
     caption: 'Event photo 6', // TODO: replace
