@@ -78,7 +78,7 @@ export const experience = [
       'Managed and grew an active gaming community by organizing interactive events, tournaments and engagement initiatives.',
       'Coordinated with moderators, volunteers and creators to ensure smooth community operations and event execution.',
       'Planned and hosted esports tournaments, managed registrations, match schedules and participant communications.',
-      'Developed community announcements, promotional campaigns, and feedback systems to improve member engagement and retention.',
+      'Developed community announcements, promotional campaigns and feedback systems to improve member engagement and retention.',
     ],
   },
 ]
@@ -101,6 +101,47 @@ export const projects = [
     codeUrl: 'https://github.com/ChayanNEO/EpicFrame',
   },
 ]
+
+export const creativeWork = {
+  intro:
+    "Outside of code, I'm a musician and I design posters — performing, writing/producing music, and creating poster art for events and communities.",
+  posters: [
+    {
+      title: 'Poster Title 1', // TODO: replace with your poster's title
+      client: 'Event / Client name', // TODO: replace
+      description: 'Short description of this poster design — theme, tools used, purpose.', // TODO: replace
+      imageUrl: null, // TODO: add image path, e.g. '/posters/poster-1.jpg'
+    },
+    {
+      title: 'Poster Title 2', // TODO: replace
+      client: 'Event / Client name', // TODO: replace
+      description: 'Short description of this poster design — theme, tools used, purpose.', // TODO: replace
+      imageUrl: null, // TODO: add image path
+    },
+    {
+      title: 'Poster Title 3', // TODO: replace
+      client: 'Event / Client name', // TODO: replace
+      description: 'Short description of this poster design — theme, tools used, purpose.', // TODO: replace
+      imageUrl: null, // TODO: add image path
+    },
+  ],
+  performances: [
+    {
+      title: 'Performance / Track Title 1', // TODO: replace
+      venue: 'Venue / Event / Release name', // TODO: replace
+      description: 'Short description — instrument, genre, or story behind this performance.', // TODO: replace
+      mediaType: 'video', // 'video' or 'photo'
+      mediaUrl: null, // TODO: add a YouTube/Instagram link or local file path
+    },
+    {
+      title: 'Performance / Track Title 2', // TODO: replace
+      venue: 'Venue / Event / Release name', // TODO: replace
+      description: 'Short description — instrument, genre, or story behind this performance.', // TODO: replace
+      mediaType: 'photo', // 'video' or 'photo'
+      mediaUrl: null, // TODO: add an image path or link
+    },
+  ],
+}
 
 export const education = [
   {
