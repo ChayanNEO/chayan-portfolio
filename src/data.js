@@ -172,7 +172,7 @@ export const creativeWork = {
       venue: 'The Bhawanipur Education Society College, Kolkata', // TODO: replace
       description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
-      mediaUrl: null, // TODO: add an image path or link
+      mediaUrl: 'https://youtu.be/h5w4ucQSa6s?si=DlcXa_vcPLWR2I6v',
     },
   ],
 }
@@ -180,11 +180,11 @@ export const creativeWork = {
 export const gallery = [
   {
     caption: 'Event photo 1', // TODO: replace with a short caption
-    imageUrl: null, // TODO: add image path, e.g. '/gallery/event-1.jpg'
+    imageUrl: '/gallery/dna.jpeg',
   },
   {
     caption: 'Event photo 2', // TODO: replace
-    imageUrl: null, // TODO: add image path
+    imageUrl: '/gallery/ionians.jpeg',
   },
   {
     caption: 'Event photo 3', // TODO: replace

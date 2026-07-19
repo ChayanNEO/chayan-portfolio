@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { creativeWork } from '../data'
 import './CreativeWork.css'
 
@@ -41,9 +42,7 @@ function CreativeWork() {
                 <div className="creative-media">
                   {item.mediaUrl ? (
                     item.mediaType === 'video' ? (
-                      <a href={item.mediaUrl} target="_blank" rel="noreferrer" className="creative-media-link">
-                        Watch video &#8599;
-                      </a>
+                      <VideoPreview item={item} />
                     ) : (
                       <img src={item.mediaUrl} alt={item.title} />
                     )
@@ -63,6 +62,61 @@ function CreativeWork() {
         </div>
       </div>
     </section>
+  )
+}
+
+function getYouTubeId(url) {
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/)
+  return match ? match[1] : null
+}
+
+function VideoPreview({ item }) {
+  const [hovering, setHovering] = useState(false)
+  const youtubeId = getYouTubeId(item.mediaUrl)
+
+  if (!youtubeId) {
+    return (
+      <a href={item.mediaUrl} target="_blank" rel="noreferrer" className="creative-media-link">
+        Watch video &#8599;
+      </a>
+    )
+  }
+
+  return (
+    <div
+      className={`creative-video ${hovering ? 'is-playing' : ''}`}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      onClick={() => setHovering((v) => !v)}
+      role="button"
+      tabIndex={0}
+      aria-label={`Play preview of ${item.title}`}
+    >
+      <img
+        src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
+        alt={item.title}
+        className="creative-video-poster"
+      />
+      {hovering && (
+        <iframe
+          className="creative-video-frame"
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=0&controls=0&loop=1&playlist=${youtubeId}&modestbranding=1&rel=0&playsinline=1`}
+          title={item.title}
+          allow="autoplay; encrypted-media"
+        />
+      )}
+      <span className="creative-video-play" aria-hidden="true">
+        <PlayIcon />
+      </span>
+    </div>
+  )
+}
+
+function PlayIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8 5.14v13.72c0 .9.98 1.46 1.76.99l11.15-6.86a1.16 1.16 0 0 0 0-1.98L9.76 4.15A1.16 1.16 0 0 0 8 5.14Z" />
+    </svg>
   )
 }
 
