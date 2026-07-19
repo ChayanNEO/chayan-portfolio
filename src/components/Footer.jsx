@@ -8,7 +8,7 @@ function Footer() {
     <footer className="footer">
       <div className="container footer-inner">
         <p>
-          &copy; {year} {profile.name}. Built with React &amp; Vite.
+          &copy; {year} {profile.name}. 
         </p>
         <a href="#top">Back to top &uarr;</a>
       </div>
