@@ -4,17 +4,17 @@
 export const profile = {
   name: 'Chayan Ghosh',
   title: 'BCA Student | Full-Stack Web Developer | Community Manager',
-  bio: "I'm a BCA student passionate about building full-stack web applications using Java, JSP/Servlets, MySQL, and modern web technologies. Alongside development, I actively organize tech and gaming communities, combining technical skills with leadership to create impactful digital experiences.",
+  bio: "I'm a BCA student passionate about building full-stack web applications using Java, JSP/Servlets, MySQL and modern web technologies. Alongside development, I actively organize tech and gaming Events.",
   location: 'India', // TODO: replace with your city/state
   resumeUrl: '#', // TODO: link to your resume PDF
   avatarInitials: 'CG',
   roles: [
-    'Full-Stack Java Developer',
-    'JSP / Servlets Developer',
-    'Community Builder',
+    'Full-Stack Web Developer',
+    'Fast Learner',
+    'Community Manager',
     'BCA Student',
   ],
-  focusAreas: ['Full-Stack Dev', 'Community-Led', 'Problem Solver'],
+  focusAreas: ['Full-Stack web Dev', 'Community-Led', 'Fast Learner'],
 }
 
 export const contact = {
@@ -107,16 +107,16 @@ export const creativeWork = {
     "Outside of code, I'm a musician and I design posters — performing, writing/producing music, and creating poster art for events and communities.",
   posters: [
     {
-      title: 'Poster Title 1', // TODO: replace with your poster's title
-      client: 'Event / Client name', // TODO: replace
-      description: 'Short description of this poster design — theme, tools used, purpose.', // TODO: replace
-      imageUrl: null, // TODO: add image path, e.g. '/posters/poster-1.jpg'
+      title: 'Code-o-fiesta', // TODO: replace with your poster's title
+      client: 'Hashtag Club', // TODO: replace
+      description: "A Coding Contest Poster that was made for the upcoming Coding Event Organized by Hashtag Club.", // TODO: replace
+      imageUrl: '/gallery/Coding_Contest.png', // TODO: add image path, e.g. '/posters/poster-1.jpg'
     },
     {
-      title: 'Poster Title 2', // TODO: replace
-      client: 'Event / Client name', // TODO: replace
-      description: 'Short description of this poster design — theme, tools used, purpose.', // TODO: replace
-      imageUrl: null, // TODO: add image path
+      title: 'Discord Event', // TODO: replace with your poster's title
+      client: 'Glance aka Nostraplay', // TODO: replace
+      description: "Poster for the Community Event in there Discord Server.", // TODO: replace
+      imageUrl: '/gallery/Glance.png', // TODO: add image path, e.g. '/posters/poster-1.jpg'
     },
     {
       title: 'Poster Title 3', // TODO: replace

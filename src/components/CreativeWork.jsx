@@ -17,7 +17,7 @@ function CreativeWork() {
           <div className="creative-grid">
             {creativeWork.posters.map((poster) => (
               <div className="creative-card card" key={poster.title}>
-                <div className="creative-media">
+                <div className="creative-media creative-media-poster">
                   {poster.imageUrl ? (
                     <img src={poster.imageUrl} alt={poster.title} />
                   ) : (

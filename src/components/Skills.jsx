@@ -9,7 +9,7 @@ function Skills() {
           <span className="section-tag">Skills</span>
           <h2 className="section-title">What I work with</h2>
           <p className="section-subtitle">
-            A snapshot of the languages, frameworks, and tools I use to build and ship projects.
+            A snapshot of the languages, frameworks and tools I use to build and ship projects.
           </p>
         </div>
 

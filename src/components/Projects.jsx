@@ -9,7 +9,7 @@ function Projects() {
           <span className="section-tag">Projects</span>
           <h2 className="section-title">Things I've built</h2>
           <p className="section-subtitle">
-            A selection of projects — replace these with your own work and links.
+            Some of My Recent Projects that I have Made.
           </p>
         </div>
 
