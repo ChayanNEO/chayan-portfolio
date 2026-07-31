@@ -101,6 +101,14 @@ export const projects = [
     liveUrl: '#',
     codeUrl: 'https://github.com/ChayanNEO/EpicFrame',
   },
+  {
+    title: 'Weather Report',
+    description:
+      'A weather lookup app that fetches and displays live conditions for any city, built with vanilla HTML, CSS, and JavaScript.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    liveUrl: 'https://weather-report-phi-steel.vercel.app/',
+    codeUrl: 'https://github.com/ChayanNEO/Weather-Report',
+  },
 ]
 
 export const creativeWork = {
@@ -153,7 +161,7 @@ export const creativeWork = {
     },
     {
       title: "Jagriti 2026 ", // TODO: replace
-      band: "PROJECT DRISHTI", // TODO: replace with your band's name, or set to null if not applicable
+      band: "Project Drishti", // TODO: replace with your band's name, or set to null if not applicable
       venue: 'Government College of Engineering and Ceramic Technology, Kolkata', // TODO: replace
       description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
@@ -161,7 +169,7 @@ export const creativeWork = {
     },
     {
       title: 'Ecstasia 2026', // TODO: replace
-      band: "PROJECT DRISHTI", // TODO: replace with your band's name, or set to null if not applicable
+      band: "Project Drishti", // TODO: replace with your band's name, or set to null if not applicable
       venue: 'University of Engineering & Management, Kolkata (UEM), Kolkata', // TODO: replace
       description: "Participated in the Battle of Bands, performing as the band's drummer in an inter-college music competition. ", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
