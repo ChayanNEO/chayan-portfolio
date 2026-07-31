@@ -5,7 +5,7 @@ export const profile = {
   name: 'Chayan Ghosh',
   title: 'BCA Student | Full-Stack Web Developer | Community Manager',
   bio: "I'm a BCA student passionate about building full-stack web applications using Java, JSP/Servlets, MySQL and modern web technologies. Alongside development, I actively organize tech and gaming Events.",
-  location: 'India', // TODO: replace with your city/state
+  location: 'Kolkata, India', // TODO: replace with your city/state
   resumeUrl: '#', // TODO: link to your resume PDF
   avatarUrl: '/gallery/avatar.jpeg',
   avatarInitials: 'CG',

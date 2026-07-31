@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { profile, contact } from '../data'
 import useTypewriter from '../hooks/useTypewriter'
 import './Hero.css'
@@ -48,6 +49,24 @@ const codeLines = [
 
 function Hero() {
   const role = useTypewriter(profile.roles)
+  const cardRef = useRef(null)
+
+  const handleCardMove = (e) => {
+    const el = cardRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const px = (e.clientX - rect.left) / rect.width - 0.5
+    const py = (e.clientY - rect.top) / rect.height - 0.5
+    el.style.setProperty('--rx', `${(-py * 10).toFixed(2)}deg`)
+    el.style.setProperty('--ry', `${(px * 10).toFixed(2)}deg`)
+  }
+
+  const resetCardTilt = () => {
+    const el = cardRef.current
+    if (!el) return
+    el.style.setProperty('--rx', '0deg')
+    el.style.setProperty('--ry', '0deg')
+  }
 
   return (
     <section id="top" className="hero">
@@ -59,7 +78,26 @@ function Hero() {
           </span>
 
           <p className="hero-greeting">Hi, I'm</p>
-          <h1 className="hero-name gradient-text">{profile.name}</h1>
+          <h1 className="hero-name gradient-text">
+            {profile.name}
+            <svg className="hero-name-underline" viewBox="0 0 220 12" width="220" height="12" aria-hidden="true">
+              <path
+                d="M2 8c20-8 40-8 60 0s40 8 60 0 40-8 60 0 30 6 34 2"
+                fill="none"
+                stroke="url(#heroUnderlineGradient)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                pathLength="1"
+              />
+              <defs>
+                <linearGradient id="heroUnderlineGradient" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="var(--accent-2)" />
+                  <stop offset="55%" stopColor="var(--accent)" />
+                  <stop offset="100%" stopColor="var(--accent-3)" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </h1>
           <h2 className="hero-role">
             <span>{role}</span>
             <span className="hero-cursor" aria-hidden="true" />
@@ -89,30 +127,36 @@ function Hero() {
         </div>
 
         <div className="hero-visual">
-          <div className="hero-card card">
-            <div className="hero-card-bar">
-              <span className="hero-dot hero-dot-red" />
-              <span className="hero-dot hero-dot-yellow" />
-              <span className="hero-dot hero-dot-green" />
-              <span className="hero-card-filename">profile.json</span>
-            </div>
-            <pre className="hero-code">
-              <code>
-                {codeLines.map((line, idx) => (
-                  <div
-                    className="hero-code-line"
-                    key={idx}
-                    style={{ paddingLeft: `${line.indent * 18}px` }}
-                  >
-                    {line.tokens.map((tok, i) => (
-                      <span className={`tok-${tok.t}`} key={i}>
-                        {tok.v}
+          <div className="hero-card-float">
+            <div
+              className="hero-card card"
+              ref={cardRef}
+              onMouseMove={handleCardMove}
+              onMouseLeave={resetCardTilt}
+            >
+              <div className="hero-card-bar">
+                <span className="hero-dot hero-dot-red" />
+                <span className="hero-dot hero-dot-yellow" />
+                <span className="hero-dot hero-dot-green" />
+                <span className="hero-card-filename">profile.json</span>
+              </div>
+              <pre className="hero-code">
+                <code>
+                  {codeLines.map((line, idx) => (
+                    <div className="hero-code-line" key={idx}>
+                      <span className="hero-code-linenum" aria-hidden="true" />
+                      <span className="hero-code-content" style={{ paddingLeft: `${line.indent * 18}px` }}>
+                        {line.tokens.map((tok, i) => (
+                          <span className={`tok-${tok.t}`} key={i}>
+                            {tok.v}
+                          </span>
+                        ))}
                       </span>
-                    ))}
-                  </div>
-                ))}
-              </code>
-            </pre>
+                    </div>
+                  ))}
+                </code>
+              </pre>
+            </div>
           </div>
 
           {profile.focusAreas.map((label, i) => (
