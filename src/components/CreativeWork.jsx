@@ -1,8 +1,23 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { creativeWork } from '../data'
 import './CreativeWork.css'
 
 function CreativeWork() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [autoPlayFeatured, setAutoPlayFeatured] = useState(false)
+  const featuredRef = useRef(null)
+
+  const featuredPerformance = creativeWork.performances[activeIndex]
+  const restPerformances = creativeWork.performances
+    .map((item, i) => ({ item, i }))
+    .filter(({ i }) => i !== activeIndex)
+
+  const playInFeatured = (index) => {
+    setActiveIndex(index)
+    setAutoPlayFeatured(true)
+    featuredRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+
   return (
     <section id="creative" className="section">
       <div className="container">
@@ -13,51 +28,116 @@ function CreativeWork() {
         </div>
 
         <div className="creative-subsection">
-          <h3 className="creative-subheading">Poster Design</h3>
-          <div className="creative-grid">
-            {creativeWork.posters.map((poster) => (
-              <div className="creative-card card" key={poster.title}>
-                <div className="creative-media creative-media-poster">
-                  {poster.imageUrl ? (
-                    <img src={poster.imageUrl} alt={poster.title} />
-                  ) : (
-                    <PlaceholderIcon />
-                  )}
+          <h3 className="creative-subheading">
+            <PinIcon />
+            Poster Design
+          </h3>
+          <div className="creative-board">
+            <div className="creative-grid creative-grid-posters">
+              {creativeWork.posters.map((poster) => (
+                <div className="creative-card creative-card-poster card" key={poster.title}>
+                  <span className="creative-pin" aria-hidden="true" />
+                  <div className="creative-media creative-media-poster">
+                    <PosterCarousel images={poster.images} title={poster.title} />
+                  </div>
+                  <div className="creative-card-body">
+                    <h4>{poster.title}</h4>
+                    <span className="creative-meta">{poster.client}</span>
+                    <p>{poster.description}</p>
+                  </div>
                 </div>
-                <div className="creative-card-body">
-                  <h4>{poster.title}</h4>
-                  <span className="creative-meta">{poster.client}</span>
-                  <p>{poster.description}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
         <div className="creative-subsection">
-          <h3 className="creative-subheading">Music &amp; Performances</h3>
-          <div className="creative-grid">
-            {creativeWork.performances.map((item) => (
-              <div className="creative-card card" key={item.title}>
-                <div className="creative-media">
-                  {item.mediaUrl ? (
-                    item.mediaType === 'video' ? (
-                      <VideoPreview item={item} />
+          <h3 className="creative-subheading">
+            <NoteIcon />
+            Music &amp; Performances
+          </h3>
+          <div className="creative-performances">
+            {featuredPerformance && (
+              <div className="creative-featured creative-card card" ref={featuredRef}>
+                <div className="creative-featured-media">
+                  {featuredPerformance.mediaUrl ? (
+                    featuredPerformance.mediaType === 'video' ? (
+                      <VideoPreview
+                        item={featuredPerformance}
+                        key={featuredPerformance.title}
+                        autoPlay={autoPlayFeatured}
+                      />
                     ) : (
-                      <img src={item.mediaUrl} alt={item.title} />
+                      <img src={featuredPerformance.mediaUrl} alt={featuredPerformance.title} />
                     )
                   ) : (
-                    <PlaceholderIcon type={item.mediaType} />
+                    <PlaceholderIcon type={featuredPerformance.mediaType} />
                   )}
+                  <span className="creative-featured-tag">
+                    <StarIcon />
+                    Featured Performance
+                  </span>
                 </div>
-                <div className="creative-card-body">
-                  <h4>{item.title}</h4>
-                  {item.band && <span className="creative-band">{item.band}</span>}
-                  <span className="creative-meta">{item.venue}</span>
-                  <p>{item.description}</p>
+                <div className="creative-featured-body">
+                  <span className="creative-track-tag" aria-hidden="true" />
+                  <div className="creative-title-row">
+                    <h4>{featuredPerformance.title}</h4>
+                    <EqualizerBars />
+                  </div>
+                  {featuredPerformance.band && <span className="creative-band">{featuredPerformance.band}</span>}
+                  <span className="creative-meta">
+                    <VenueIcon />
+                    {featuredPerformance.venue}
+                  </span>
+                  <p>{featuredPerformance.description}</p>
                 </div>
               </div>
-            ))}
+            )}
+
+            {restPerformances.length > 0 && (
+              <ul className="creative-track-list">
+                {restPerformances.map(({ item, i }) => (
+                  <li
+                    className="creative-track-row"
+                    key={item.title}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Play ${item.title} in the featured player`}
+                    onClick={() => playInFeatured(i)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        playInFeatured(i)
+                      }
+                    }}
+                  >
+                    <span className="creative-track-num" aria-hidden="true" />
+                    <span className="creative-track-media">
+                      {item.mediaUrl ? (
+                        item.mediaType === 'video' ? (
+                          <VideoPreview item={item} compact />
+                        ) : (
+                          <img src={item.mediaUrl} alt={item.title} />
+                        )
+                      ) : (
+                        <PlaceholderIcon type={item.mediaType} />
+                      )}
+                    </span>
+                    <span className="creative-track-info">
+                      <span className="creative-track-title-row">
+                        <h4>{item.title}</h4>
+                        {item.band && <span className="creative-band">{item.band}</span>}
+                      </span>
+                      <span className="creative-meta">
+                        <VenueIcon />
+                        {item.venue}
+                      </span>
+                    </span>
+                    <EqualizerBars />
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
@@ -70,8 +150,8 @@ function getYouTubeId(url) {
   return match ? match[1] : null
 }
 
-function VideoPreview({ item }) {
-  const [hovering, setHovering] = useState(false)
+function VideoPreview({ item, compact = false, autoPlay = false }) {
+  const [hovering, setHovering] = useState(autoPlay)
   const youtubeId = getYouTubeId(item.mediaUrl)
 
   if (!youtubeId) {
@@ -82,15 +162,26 @@ function VideoPreview({ item }) {
     )
   }
 
+  // Compact thumbnails live inside an already-clickable track row, so they
+  // only get a hover peek — no nested button semantics, no click-to-toggle.
+  const interactiveProps = compact
+    ? {
+        onMouseEnter: () => setHovering(true),
+        onMouseLeave: () => setHovering(false),
+      }
+    : {
+        onMouseEnter: () => setHovering(true),
+        onMouseLeave: () => setHovering(false),
+        onClick: () => setHovering((v) => !v),
+        role: 'button',
+        tabIndex: 0,
+        'aria-label': `Play preview of ${item.title}`,
+      }
+
   return (
     <div
-      className={`creative-video ${hovering ? 'is-playing' : ''}`}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-      onClick={() => setHovering((v) => !v)}
-      role="button"
-      tabIndex={0}
-      aria-label={`Play preview of ${item.title}`}
+      className={`creative-video ${hovering ? 'is-playing' : ''} ${compact ? 'creative-video-compact' : ''}`}
+      {...interactiveProps}
     >
       <img
         src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
@@ -109,6 +200,128 @@ function VideoPreview({ item }) {
         <PlayIcon />
       </span>
     </div>
+  )
+}
+
+function PosterCarousel({ images, title }) {
+  const [index, setIndex] = useState(0)
+
+  if (!images || images.length === 0) {
+    return <PlaceholderIcon />
+  }
+
+  const count = images.length
+  const goTo = (target, e) => {
+    e.stopPropagation()
+    setIndex((target + count) % count)
+  }
+
+  return (
+    <>
+      <img src={images[index]} alt={`${title} — image ${index + 1} of ${count}`} />
+      {count > 1 && (
+        <>
+          <button
+            type="button"
+            className="creative-carousel-nav creative-carousel-prev"
+            onClick={(e) => goTo(index - 1, e)}
+            aria-label={`Previous image in ${title}`}
+          >
+            <ChevronIcon direction="left" />
+          </button>
+          <button
+            type="button"
+            className="creative-carousel-nav creative-carousel-next"
+            onClick={(e) => goTo(index + 1, e)}
+            aria-label={`Next image in ${title}`}
+          >
+            <ChevronIcon direction="right" />
+          </button>
+          <span className="creative-carousel-count">
+            {index + 1}/{count}
+          </span>
+          <span className="creative-carousel-dots">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                className={`creative-carousel-dot ${i === index ? 'is-active' : ''}`}
+                onClick={(e) => goTo(i, e)}
+                aria-label={`Go to image ${i + 1} of ${count} in ${title}`}
+              />
+            ))}
+          </span>
+        </>
+      )}
+    </>
+  )
+}
+
+function ChevronIcon({ direction }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+      <path
+        d={direction === 'left' ? 'M14.5 6.5 9 12l5.5 5.5' : 'M9.5 6.5 15 12l-5.5 5.5'}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function PinIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="creative-subheading-icon">
+      <path d="M12 2v6.5" strokeLinecap="round" />
+      <path d="M7 9h10l-1.2 5.5a2 2 0 0 1-1.95 1.5H10.15a2 2 0 0 1-1.95-1.5L7 9Z" />
+      <path d="M12 16v6" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function NoteIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="creative-subheading-icon">
+      <path d="M9 18V5l11-2v13" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="17" cy="16" r="3" />
+    </svg>
+  )
+}
+
+function StarIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2.5 14.9 9.2 22.2 9.9 16.7 14.7 18.4 21.9 12 18.1 5.6 21.9 7.3 14.7 1.8 9.9 9.1 9.2Z" />
+    </svg>
+  )
+}
+
+function VenueIcon() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="creative-venue-icon"
+    >
+      <path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="12" cy="10" r="2.4" />
+    </svg>
+  )
+}
+
+function EqualizerBars() {
+  return (
+    <span className="creative-eq" aria-hidden="true">
+      <span />
+      <span />
+      <span />
+      <span />
+    </span>
   )
 }
 

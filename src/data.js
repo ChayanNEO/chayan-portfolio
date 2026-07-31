@@ -7,6 +7,7 @@ export const profile = {
   bio: "I'm a BCA student passionate about building full-stack web applications using Java, JSP/Servlets, MySQL and modern web technologies. Alongside development, I actively organize tech and gaming Events.",
   location: 'India', // TODO: replace with your city/state
   resumeUrl: '#', // TODO: link to your resume PDF
+  avatarUrl: '/gallery/avatar.jpeg',
   avatarInitials: 'CG',
   roles: [
     'Full-Stack Web Developer',
@@ -69,7 +70,7 @@ export const experience = [
       'Promoted student engagement by fostering collaboration, leadership and participation across departmental initiatives.',
     ],
   },
-    {
+  {
     role: 'Community Manager',
     org: 'AIMpress Community',
     orgUrl: 'https://aimpress.co.in/',
@@ -110,19 +111,19 @@ export const creativeWork = {
       title: 'Code-o-fiesta', // TODO: replace with your poster's title
       client: 'Hashtag Club', // TODO: replace
       description: "A Coding Contest Poster that was made for the upcoming Coding Event Organized by Hashtag Club.", // TODO: replace
-      imageUrl: '/gallery/Coding_Contest.png', // TODO: add image path, e.g. '/posters/poster-1.jpg'
+      images: ['/gallery/Coding_Contest.png'], // TODO: add one or more image paths for this group, e.g. ['/posters/poster-1a.jpg', '/posters/poster-1b.jpg']
     },
     {
       title: 'Discord Event', // TODO: replace with your poster's title
       client: 'Glance aka Nostraplay', // TODO: replace
       description: "Poster for the Community Event in there Discord Server.", // TODO: replace
-      imageUrl: '/gallery/Glance.png', // TODO: add image path, e.g. '/posters/poster-1.jpg'
+      images: ['/gallery/Glance.png'], // TODO: add one or more image paths for this group
     },
     {
       title: 'Poster Title 3', // TODO: replace
       client: 'Event / Client name', // TODO: replace
       description: 'Short description of this poster design — theme, tools used, purpose.', // TODO: replace
-      imageUrl: null, // TODO: add image path
+      images: [], // TODO: add one or more image paths for this group
     },
   ],
   performances: [
@@ -138,7 +139,7 @@ export const creativeWork = {
       title: "Login 2026", // TODO: replace
       band: 'STOTRAM', // TODO: replace with your band's name, or set to null if not applicable
       venue: 'Bhawanipur Global Campus, Kolkata', // TODO: replace
-      description:"A music fest organized by a music institution, where I performed as a drummer with their students' band.", // TODO: replace
+      description: "A music fest organized by a music institution, where I performed as a drummer with their students' band.", // TODO: replace
       mediaType: 'video', // 'video' or 'photo'
       mediaUrl: 'https://youtu.be/bYLPGoGXKv8', // TODO: add a YouTube/Instagram link or local file path
     },
@@ -182,7 +183,7 @@ export const creativeWork = {
       mediaType: 'video', // 'video' or 'photo'
       mediaUrl: 'https://youtu.be/VmZQSwqPGIU',
     },
-   {
+    {
       title: 'Ecstasy 2026', // TODO: replace
       band: "Project Drishti", // TODO: replace with your band's name, or set to null if not applicable
       venue: 'Heritage Institute of Technology', // TODO: replace
