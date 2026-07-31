@@ -28,10 +28,12 @@ function Gallery() {
 
   const [centerIndex, setCenterIndex] = useState(0)
   const [activeIndex, setActiveIndex] = useState(null)
+  const [paused, setPaused] = useState(false)
 
   const containerRef = useRef(null)
   const pointerRef = useRef({ startX: 0, active: false, moved: false })
   const interactionPausedRef = useRef(false)
+  const manualPausedRef = useRef(false)
   const outOfViewRef = useRef(true)
   const resumeTimerRef = useRef(null)
   const lastWheelRef = useRef(0)
@@ -41,6 +43,12 @@ function Gallery() {
   }
 
   const goTo = (index) => setCenterIndex(index)
+
+  const nudge = (delta) => {
+    pauseAutoAdvance()
+    step(delta)
+    scheduleAutoAdvanceResume()
+  }
 
   const pauseAutoAdvance = () => {
     interactionPausedRef.current = true
@@ -84,7 +92,7 @@ function Gallery() {
     observer.observe(container)
 
     const id = setInterval(() => {
-      if (interactionPausedRef.current || outOfViewRef.current || document.hidden) return
+      if (manualPausedRef.current || interactionPausedRef.current || outOfViewRef.current || document.hidden) return
       step(1)
     }, AUTO_ADVANCE_MS)
 
@@ -105,6 +113,10 @@ function Gallery() {
   useEffect(() => () => {
     if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
   }, [])
+
+  useEffect(() => {
+    manualPausedRef.current = paused
+  }, [paused])
 
   useEffect(() => {
     const container = containerRef.current
@@ -196,11 +208,46 @@ function Gallery() {
           <p className="gallery-hint">
             Rotates automatically — click a photo to bring it forward, hover to read its caption &#8594;
           </p>
+          <div className="gallery-toolbar">
+            <span className="gallery-counter">
+              {String(centerIndex + 1).padStart(2, '0')}
+              <span className="gallery-counter-sep">/</span>
+              {String(total).padStart(2, '0')}
+            </span>
+            <span className="gallery-toolbar-divider" aria-hidden="true" />
+            <button
+              type="button"
+              className="gallery-play-toggle"
+              aria-pressed={paused}
+              aria-label={paused ? 'Resume auto-rotate' : 'Pause auto-rotate'}
+              onClick={() => setPaused((p) => !p)}
+            >
+              {paused ? <PlayGlyph /> : <PauseGlyph />}
+              {paused ? 'Play' : 'Pause'}
+            </button>
+          </div>
         </div>
       </div>
 
       <div className="gallery-coverflow-wrapper">
         <div className="gallery-glow" aria-hidden="true" />
+
+        <button
+          type="button"
+          className="gallery-arrow gallery-arrow-prev"
+          aria-label="Previous photo"
+          onClick={() => nudge(-1)}
+        >
+          <ChevronGlyph direction="left" />
+        </button>
+        <button
+          type="button"
+          className="gallery-arrow gallery-arrow-next"
+          aria-label="Next photo"
+          onClick={() => nudge(1)}
+        >
+          <ChevronGlyph direction="right" />
+        </button>
         <div
           className="gallery-coverflow"
           ref={containerRef}
@@ -251,6 +298,12 @@ function Gallery() {
             )
           })}
         </div>
+
+        {!paused && activeIndex === null && (
+          <div className="gallery-autoplay-track" aria-hidden="true">
+            <span key={centerIndex} style={{ animationDuration: `${AUTO_ADVANCE_MS}ms` }} />
+          </div>
+        )}
 
         {dotIndices.length > 1 && (
           <div className="gallery-dots">
@@ -321,6 +374,35 @@ function Gallery() {
         </div>
       )}
     </section>
+  )
+}
+
+function ChevronGlyph({ direction }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+      <path
+        d={direction === 'left' ? 'M14.5 6.5 9 12l5.5 5.5' : 'M9.5 6.5 15 12l-5.5 5.5'}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function PlayGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8 5.14v13.72c0 .9.98 1.46 1.76.99l11.15-6.86a1.16 1.16 0 0 0 0-1.98L9.76 4.15A1.16 1.16 0 0 0 8 5.14Z" />
+    </svg>
+  )
+}
+
+function PauseGlyph() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+      <rect x="6" y="4" width="4.5" height="16" rx="1.2" />
+      <rect x="13.5" y="4" width="4.5" height="16" rx="1.2" />
+    </svg>
   )
 }
 

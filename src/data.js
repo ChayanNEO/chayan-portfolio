@@ -39,7 +39,7 @@ export const skills = [
   },
   {
     category: 'Tools & Platforms',
-    items: ['Git & GitHub', 'VS Code', 'Canva', 'Figma'],
+    items: ['Git & GitHub', 'VS Code', 'Canva', 'Figma', 'Claude'],
   },
   {
     category: 'Soft Skills',

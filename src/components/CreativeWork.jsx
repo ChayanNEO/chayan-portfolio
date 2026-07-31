@@ -2,6 +2,8 @@ import { useRef, useState } from 'react'
 import { creativeWork } from '../data'
 import './CreativeWork.css'
 
+const ROW_ACCENTS = ['var(--accent)', 'var(--accent-2)', 'var(--accent-3)']
+
 function CreativeWork() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [autoPlayFeatured, setAutoPlayFeatured] = useState(false)
@@ -25,6 +27,17 @@ function CreativeWork() {
           <span className="section-tag">Creative Work</span>
           <h2 className="section-title">Musician &amp; Poster Designer</h2>
           <p className="section-subtitle">{creativeWork.intro}</p>
+          <div className="creative-stats">
+            <span className="creative-stat" style={{ '--stat-accent': ROW_ACCENTS[0] }}>
+              <strong>{creativeWork.posters.length}</strong> Poster Designs
+            </span>
+            <span className="creative-stat" style={{ '--stat-accent': ROW_ACCENTS[1] }}>
+              <strong>{creativeWork.performances.length}</strong> Live Performances
+            </span>
+            <span className="creative-stat" style={{ '--stat-accent': ROW_ACCENTS[2] }}>
+              <strong>{new Set(creativeWork.performances.map((p) => p.band).filter(Boolean)).size}</strong> Bands
+            </span>
+          </div>
         </div>
 
         <div className="creative-subsection">
@@ -58,7 +71,11 @@ function CreativeWork() {
           </h3>
           <div className="creative-performances">
             {featuredPerformance && (
-              <div className="creative-featured creative-card card" ref={featuredRef}>
+              <div
+                className="creative-featured creative-card card"
+                style={{ '--row-accent': ROW_ACCENTS[activeIndex % ROW_ACCENTS.length] }}
+                ref={featuredRef}
+              >
                 <div className="creative-featured-media">
                   {featuredPerformance.mediaUrl ? (
                     featuredPerformance.mediaType === 'video' ? (
@@ -99,6 +116,7 @@ function CreativeWork() {
                 {restPerformances.map(({ item, i }) => (
                   <li
                     className="creative-track-row"
+                    style={{ '--row-accent': ROW_ACCENTS[i % ROW_ACCENTS.length] }}
                     key={item.title}
                     role="button"
                     tabIndex={0}

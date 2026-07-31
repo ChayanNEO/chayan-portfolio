@@ -8,16 +8,92 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--card-accent), transparent 85%);
+}
+
+.project-card::after {
+  content: '';
+  position: absolute;
+  top: -25%;
+  right: -15%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: var(--card-accent);
+  opacity: 0.08;
+  filter: blur(40px);
+  z-index: -1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .project-card:hover {
   transform: translateY(-4px);
-  border-color: var(--accent);
+  border-color: color-mix(in srgb, var(--card-accent) 45%, var(--border));
+}
+
+.project-card:hover::after {
+  opacity: 0.18;
+  transform: scale(1.15);
+}
+
+.project-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px 0;
+}
+
+.project-dots {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.project-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.project-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--card-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--card-accent) 25%, transparent);
+}
+
+.project-index {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--text) 30%, transparent);
 }
 
 .project-card-body {
-  padding: 28px 28px 0;
+  padding: 18px 28px 0;
 }
 
 .project-card-body h3 {
@@ -39,21 +115,50 @@
 
 .project-links {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
   padding: 20px 28px;
   border-top: 1px solid var(--border);
   margin-top: 20px;
 }
 
-.project-links a {
-  font-size: 0.88rem;
+.project-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-muted);
-  transition: color 0.2s ease;
+  color: var(--bg);
+  background: var(--card-accent);
+  border: 1px solid var(--card-accent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
-.project-links a:hover {
-  color: var(--accent);
+.project-link-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.project-link-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -10px var(--card-accent);
+}
+
+.project-link-btn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.project-link-btn--ghost {
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+
+.project-link-btn--ghost:hover {
+  border-color: var(--card-accent);
+  color: var(--card-accent);
+  box-shadow: none;
 }
 
 @media (max-width: 860px) {
