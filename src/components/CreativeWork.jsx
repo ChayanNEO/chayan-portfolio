@@ -25,42 +25,15 @@ function CreativeWork() {
       <div className="container">
         <div className="section-header">
           <span className="section-tag">Creative Work</span>
-          <h2 className="section-title">Musician &amp; Poster Designer</h2>
+          <h2 className="section-title">Musician</h2>
           <p className="section-subtitle">{creativeWork.intro}</p>
           <div className="creative-stats">
-            <span className="creative-stat" style={{ '--stat-accent': ROW_ACCENTS[0] }}>
-              <strong>{creativeWork.posters.length}</strong> Poster Designs
-            </span>
             <span className="creative-stat" style={{ '--stat-accent': ROW_ACCENTS[1] }}>
               <strong>{creativeWork.performances.length}</strong> Live Performances
             </span>
             <span className="creative-stat" style={{ '--stat-accent': ROW_ACCENTS[2] }}>
               <strong>{new Set(creativeWork.performances.map((p) => p.band).filter(Boolean)).size}</strong> Bands
             </span>
-          </div>
-        </div>
-
-        <div className="creative-subsection">
-          <h3 className="creative-subheading">
-            <PinIcon />
-            Poster Design
-          </h3>
-          <div className="creative-board">
-            <div className="creative-grid creative-grid-posters">
-              {creativeWork.posters.map((poster) => (
-                <div className="creative-card creative-card-poster card" key={poster.title}>
-                  <span className="creative-pin" aria-hidden="true" />
-                  <div className="creative-media creative-media-poster">
-                    <PosterCarousel images={poster.images} title={poster.title} />
-                  </div>
-                  <div className="creative-card-body">
-                    <h4>{poster.title}</h4>
-                    <span className="creative-meta">{poster.client}</span>
-                    <p>{poster.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
@@ -218,82 +191,6 @@ function VideoPreview({ item, compact = false, autoPlay = false }) {
         <PlayIcon />
       </span>
     </div>
-  )
-}
-
-function PosterCarousel({ images, title }) {
-  const [index, setIndex] = useState(0)
-
-  if (!images || images.length === 0) {
-    return <PlaceholderIcon />
-  }
-
-  const count = images.length
-  const goTo = (target, e) => {
-    e.stopPropagation()
-    setIndex((target + count) % count)
-  }
-
-  return (
-    <>
-      <img src={images[index]} alt={`${title} — image ${index + 1} of ${count}`} />
-      {count > 1 && (
-        <>
-          <button
-            type="button"
-            className="creative-carousel-nav creative-carousel-prev"
-            onClick={(e) => goTo(index - 1, e)}
-            aria-label={`Previous image in ${title}`}
-          >
-            <ChevronIcon direction="left" />
-          </button>
-          <button
-            type="button"
-            className="creative-carousel-nav creative-carousel-next"
-            onClick={(e) => goTo(index + 1, e)}
-            aria-label={`Next image in ${title}`}
-          >
-            <ChevronIcon direction="right" />
-          </button>
-          <span className="creative-carousel-count">
-            {index + 1}/{count}
-          </span>
-          <span className="creative-carousel-dots">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                className={`creative-carousel-dot ${i === index ? 'is-active' : ''}`}
-                onClick={(e) => goTo(i, e)}
-                aria-label={`Go to image ${i + 1} of ${count} in ${title}`}
-              />
-            ))}
-          </span>
-        </>
-      )}
-    </>
-  )
-}
-
-function ChevronIcon({ direction }) {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-      <path
-        d={direction === 'left' ? 'M14.5 6.5 9 12l5.5 5.5' : 'M9.5 6.5 15 12l-5.5 5.5'}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function PinIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="creative-subheading-icon">
-      <path d="M12 2v6.5" strokeLinecap="round" />
-      <path d="M7 9h10l-1.2 5.5a2 2 0 0 1-1.95 1.5H10.15a2 2 0 0 1-1.95-1.5L7 9Z" />
-      <path d="M12 16v6" strokeLinecap="round" />
-    </svg>
   )
 }
 

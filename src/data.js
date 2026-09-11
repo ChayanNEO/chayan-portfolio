@@ -1,12 +1,10 @@
-// Central place for all portfolio content.
-// Replace the placeholder values below with your real details any time.
 
 export const profile = {
   name: 'Chayan Ghosh',
   title: 'BCA Student | Full-Stack Web Developer | Community Manager',
   bio: "I'm a BCA student passionate about building full-stack web applications using Java, JSP/Servlets, MySQL and modern web technologies. Alongside development, I actively organize tech and gaming Events.",
-  location: 'Kolkata, India', // TODO: replace with your city/state
-  resumeUrl: '#', // TODO: link to your resume PDF
+  location: 'Kolkata, India', 
+  resumeUrl: '/gallery/Chayan_RESUME.pdf',
   avatarUrl: '/gallery/avatar.jpeg',
   avatarInitials: 'CG',
   roles: [
@@ -50,8 +48,8 @@ export const skills = [
 export const experience = [
   {
     role: 'Gaming Community Manager | Glance ',
-    org: 'Glance aka Nostraplay.', // TODO: replace
-    period: 'Apr 2022 - Jan 2024', // TODO: replace
+    org: 'Glance aka Nostraplay.', 
+    period: 'Apr 2022 - Jan 2024', 
     points: [
       'Managed and engaged an active gaming community across Discord and other social platforms.',
       'Planned and executed online tournaments, community events and player engagement campaigns.',
@@ -61,8 +59,8 @@ export const experience = [
   },
   {
     role: 'Departmental Club President',
-    org: 'Hashtag Club of MSIT', // TODO: replace
-    period: '2025 - Present', // TODO: replace
+    org: 'Hashtag Club of MSIT', 
+    period: '2025 - Present', 
     points: [
       'Led the official student club of the Computer Applications Department, managing a team to organize technical events.',
       'Planned and executed coding competitions, workshops, orientation programs, and departmental activities.',
@@ -74,7 +72,7 @@ export const experience = [
     role: 'Community Manager',
     org: 'AIMpress Community',
     orgUrl: 'https://aimpress.co.in/',
-    period: '2025 - Present', // TODO: replace
+    period: '2025 - Present', 
     points: [
       'Managed and grew an active gaming community by organizing interactive events, tournaments and engagement initiatives.',
       'Coordinated with moderators, volunteers and creators to ensure smooth community operations and event execution.',
@@ -112,36 +110,16 @@ export const projects = [
 ]
 
 export const creativeWork = {
-  intro:
-    "Outside of code, I'm a musician and I design posters — performing, writing/producing music, and creating poster art for events and communities.",
-  posters: [
-    {
-      title: 'Code-o-fiesta', // TODO: replace with your poster's title
-      client: 'Hashtag Club', // TODO: replace
-      description: "A Coding Contest Poster that was made for the upcoming Coding Event Organized by Hashtag Club.", // TODO: replace
-      images: ['/gallery/Coding_Contest.png'], // TODO: add one or more image paths for this group, e.g. ['/posters/poster-1a.jpg', '/posters/poster-1b.jpg']
-    },
-    {
-      title: 'Discord Event', // TODO: replace with your poster's title
-      client: 'Glance aka Nostraplay', // TODO: replace
-      description: "Poster for the Community Event in there Discord Server.", // TODO: replace
-      images: ['/gallery/Glance.png'], // TODO: add one or more image paths for this group
-    },
-    {
-      title: 'Poster Title 3', // TODO: replace
-      client: 'Event / Client name', // TODO: replace
-      description: 'Short description of this poster design — theme, tools used, purpose.', // TODO: replace
-      images: [], // TODO: add one or more image paths for this group
-    },
-  ],
+intro:
+  "Outside of code, I'm a musician — performing and writing/producing music with my bands.",
   performances: [
     {
-      title: "Renaissance 3.0, 2025", // TODO: replace
-      band: 'STOTRAM', // TODO: replace with your band's name, or set to null if not applicable
-      venue: 'Sister Nivedita University, Kolkata', // TODO: replace
-      description: 'Secured 2nd Runners Up in the Battle of Bands', // TODO: replace
-      mediaType: 'video', // 'video' or 'photo'
-      mediaUrl: 'https://youtu.be/JJFL3_knpE8', // TODO: add a YouTube/Instagram link or local file path
+      title: "Renaissance 3.0, 2025", 
+      band: 'STOTRAM', 
+      venue: 'Sister Nivedita University, Kolkata',
+      description: 'Secured 2nd Runners Up in the Battle of Bands', 
+      mediaType: 'video', 
+      mediaUrl: 'https://youtu.be/JJFL3_knpE8',
     },
     {
       title: "Login 2026", // TODO: replace
