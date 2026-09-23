@@ -166,3 +166,45 @@
     grid-template-columns: 1fr;
   }
 }
+
+.project-case-study {
+  padding: 0 28px;
+  margin-top: 4px;
+}
+
+.project-case-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--card-accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.project-case-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px 0 4px;
+  border-top: 1px dashed var(--border);
+  margin-top: 8px;
+}
+
+.project-case-block h4 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--card-accent);
+  margin-bottom: 6px;
+}
+
+.project-case-block p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}

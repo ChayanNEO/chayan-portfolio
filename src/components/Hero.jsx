@@ -104,14 +104,17 @@ function Hero() {
           </h2>
           <p className="hero-bio">{profile.bio}</p>
 
-          <div className="hero-actions">
-            <a href="#projects" className="btn btn-primary">
-              View Projects
-            </a>
-            <a href="#contact" className="btn btn-outline">
-              Contact Me
-            </a>
-          </div>
+        <div className="hero-actions">
+  <a href="#projects" className="btn btn-primary">
+    View Projects
+  </a>
+  <a href={profile.resumeUrl} download className="btn btn-outline">
+    Download Resume
+  </a>
+  <a href="#contact" className="btn btn-outline">
+    Contact Me
+  </a>
+</div>
 
           <div className="hero-socials">
             <a href={`mailto:${contact.email}`} aria-label="Email" title="Email">

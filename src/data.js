@@ -1,19 +1,19 @@
 
 export const profile = {
   name: 'Chayan Ghosh',
-  title: 'BCA Student | Full-Stack Web Developer | Community Manager',
+  title: 'Full-Stack Developer • Community Builder • Technical Event Lead',
   bio: "I'm a BCA student passionate about building full-stack web applications using Java, JSP/Servlets, MySQL and modern web technologies. Alongside development, I actively organize tech and gaming Events.",
-  location: 'Kolkata, India', 
+  location: 'Kolkata, India',
   resumeUrl: '/gallery/Chayan_RESUME.pdf',
   avatarUrl: '/gallery/avatar.jpeg',
   avatarInitials: 'CG',
   roles: [
     'Full-Stack Web Developer',
-    'Fast Learner',
-    'Community Manager',
+    'Community Builder',
+    'Technical Event Lead',
     'BCA Student',
   ],
-  focusAreas: ['Full-Stack web Dev', 'Community-Led', 'Fast Learner'],
+  focusAreas: ['Full-Stack web Dev', 'Community Builder', 'Technical Event Lead'],
 }
 
 export const contact = {
@@ -48,8 +48,8 @@ export const skills = [
 export const experience = [
   {
     role: 'Gaming Community Manager | Glance ',
-    org: 'Glance aka Nostraplay.', 
-    period: 'Apr 2022 - Jan 2024', 
+    org: 'Glance aka Nostraplay.',
+    period: 'Apr 2022 - Jan 2024',
     points: [
       'Managed and engaged an active gaming community across Discord and other social platforms.',
       'Planned and executed online tournaments, community events and player engagement campaigns.',
@@ -59,8 +59,8 @@ export const experience = [
   },
   {
     role: 'Departmental Club President',
-    org: 'Hashtag Club of MSIT', 
-    period: '2025 - Present', 
+    org: 'Hashtag Club of MSIT',
+    period: '2025 - Present',
     points: [
       'Led the official student club of the Computer Applications Department, managing a team to organize technical events.',
       'Planned and executed coding competitions, workshops, orientation programs, and departmental activities.',
@@ -72,7 +72,7 @@ export const experience = [
     role: 'Community Manager',
     org: 'AIMpress Community',
     orgUrl: 'https://aimpress.co.in/',
-    period: '2025 - Present', 
+    period: '2025 - Present',
     points: [
       'Managed and grew an active gaming community by organizing interactive events, tournaments and engagement initiatives.',
       'Coordinated with moderators, volunteers and creators to ensure smooth community operations and event execution.',
@@ -90,6 +90,15 @@ export const projects = [
     tech: ['Java', 'JSP/Servlets', 'MySQL'],
     liveUrl: 'https://kisanbharosa.onrender.com',
     codeUrl: 'https://github.com/ChayanNEO/KisanBharosa',
+    caseStudy: 
+    {
+      problem:
+      "KisanBharosa started as an academic project that I expanded into a complete agricultural marketplace and supply-chain platform, allowing Farmers to manage and list crops, Buyers to browse products and place orders, and Administrators to manage users, products, orders and other platform activities.",
+      approach:
+      "The application was built using Java, JSP, Servlets, JDBC and MySQL, with session-based authentication and role-based access for Farmers, Buyers and Admins. One of the challenging parts was designing the relational database and maintaining relationships between users, farmers, buyers, products, categories, orders, payments and wishlists; I also worked through foreign-key constraint issues and configured Docker/Tomcat deployment with cloud database connectivity.",
+      result:
+      "I'm proud of connecting the complete application flow from the JSP frontend through Servlets and DAO/JDBC layers to the MySQL database and implementing separate workflows for different user roles. If I rebuilt it, I would use React with Spring Boot and REST APIs, introduce stronger authentication and security practices, automated testing, improved validation/error handling and a proper payment gateway instead of the current simulated payment flow.",
+    },
   },
   {
     title: 'EpicFrame',
@@ -98,6 +107,15 @@ export const projects = [
     tech: ['React', 'Node.js', 'Express', 'MongoDB'],
     liveUrl: '#',
     codeUrl: 'https://github.com/ChayanNEO/EpicFrame',
+    caseStudy: 
+    {
+      problem:
+        "EpicFrame started as an event-management project that I expanded into a complete multi-role platform for managing events, registrations, venues, agendas, sponsorships, announcements, resources and communication. The system supports separate workflows for Admins, Organizers, Attendees and Sponsors.",
+      approach:
+        "The project uses React with Vite for the frontend and Express, MongoDB/Mongoose and JWT authentication on the backend. One of the challenging parts was implementing role-based authorization and business rules such as preventing venue double-bookings by checking overlapping event dates and restricting users from modifying resources they do not own.",
+      result:
+      "I'm proud of turning the project into a functional full-stack application with real backend business logic rather than just a frontend interface. If I rebuilt it, I would add automated testing, stronger validation and error handling, API documentation, improved state management and more production-oriented security and deployment practices.",
+    },
   },
   {
     title: 'Weather Report',
@@ -106,19 +124,28 @@ export const projects = [
     tech: ['HTML', 'CSS', 'JavaScript'],
     liveUrl: 'https://weather-report-phi-steel.vercel.app/',
     codeUrl: 'https://github.com/ChayanNEO/Weather-Report',
+    caseStudy: 
+    {
+      problem:
+        "Weather Report was built as a practical frontend project to provide users with current weather, hourly forecasts and 7-day forecasts through location search or their current location, rather than displaying only basic temperature information.",
+      approach:
+        "The application was built using vanilla HTML, CSS and JavaScript and integrates Open-Meteo for weather data and BigDataCloud for reverse geocoding. It uses the browser Geolocation API, localStorage, asynchronous API calls, weather-code interpretation, dynamic weather themes and loading/error states.",
+      result:
+      "I'm proud of building a complete interactive application without relying on a frontend framework and handling multiple APIs and browser features directly. If I rebuilt it, I would modularize the JavaScript, improve API error handling and caching, strengthen accessibility and potentially use React or a backend layer for a more scalable architecture.",
+    },
   },
 ]
 
 export const creativeWork = {
-intro:
-  "Outside of code, I'm a musician — performing and writing/producing music with my bands.",
+  intro:
+    "Outside of code, I'm a musician — performing and writing/producing music with my bands.",
   performances: [
     {
-      title: "Renaissance 3.0, 2025", 
-      band: 'STOTRAM', 
+      title: "Renaissance 3.0, 2025",
+      band: 'STOTRAM',
       venue: 'Sister Nivedita University, Kolkata',
-      description: 'Secured 2nd Runners Up in the Battle of Bands', 
-      mediaType: 'video', 
+      description: 'Secured 2nd Runners Up in the Battle of Bands',
+      mediaType: 'video',
       mediaUrl: 'https://youtu.be/JJFL3_knpE8',
     },
     {
@@ -210,7 +237,7 @@ export const gallery = [
     imageUrl: '/gallery/snu.jpeg',
   },
   {
-    caption: 'Wall Magazine 0f Hashtag Club', // TODO: replace with a short caption
+    caption: 'Wall Magazine of Hashtag Club', // TODO: replace with a short caption
     imageUrl: '/gallery/hashtag.jpeg',
   },
   {

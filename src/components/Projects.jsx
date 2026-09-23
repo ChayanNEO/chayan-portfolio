@@ -1,9 +1,16 @@
+import { useState } from 'react'
 import { projects } from '../data'
 import './Projects.css'
 
 const ACCENTS = ['var(--accent)', 'var(--accent-2)', 'var(--accent-3)']
 
 function Projects() {
+  const [expanded, setExpanded] = useState(null)
+
+  const toggleExpanded = (title) => {
+    setExpanded((current) => (current === title ? null : title))
+  }
+
   return (
     <section id="projects" className="section section-alt">
       <div className="container">
@@ -18,6 +25,7 @@ function Projects() {
         <div className="projects-grid">
           {projects.map((project, i) => {
             const isLive = project.liveUrl && project.liveUrl !== '#'
+            const isExpanded = expanded === project.title
             return (
               <div
                 className="project-card card"
@@ -54,6 +62,37 @@ function Projects() {
                   </div>
                 </div>
 
+                {project.caseStudy && (
+                  <div className="project-case-study">
+                    <button
+                      type="button"
+                      className="project-case-toggle"
+                      onClick={() => toggleExpanded(project.title)}
+                      aria-expanded={isExpanded}
+                    >
+                      {isExpanded ? 'Hide Case Study' : 'View Case Study'}
+                      <ChevronIcon expanded={isExpanded} />
+                    </button>
+
+                    {isExpanded && (
+                      <div className="project-case-content">
+                        <div className="project-case-block">
+                          <h4>Problem</h4>
+                          <p>{project.caseStudy.problem}</p>
+                        </div>
+                        <div className="project-case-block">
+                          <h4>Approach</h4>
+                          <p>{project.caseStudy.approach}</p>
+                        </div>
+                        <div className="project-case-block">
+                          <h4>Result</h4>
+                          <p>{project.caseStudy.result}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 <div className="project-links">
                   {isLive && (
                     <a className="project-link-btn" href={project.liveUrl} target="_blank" rel="noreferrer">
@@ -79,6 +118,22 @@ function ArrowIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M7 17 17 7M8 7h9v9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function ChevronIcon({ expanded }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      style={{ transform: expanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s ease' }}
+    >
+      <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
