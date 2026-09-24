@@ -1,8 +1,8 @@
 
-export const profile = {
+export const profile = { 
   name: 'Chayan Ghosh',
   title: 'Full-Stack Developer • Community Builder • Technical Event Lead',
-  bio: "I'm a BCA student passionate about building full-stack web applications using Java, JSP/Servlets, MySQL and modern web technologies. Alongside development, I actively organize tech and gaming Events.",
+  bio: "I'm a BCA student passionate about building full-stack web applications using Java, JSP/Servlets, MySQL and modern web technologies. Alongside development, I actively organize tech and gaming events.",
   location: 'Kolkata, India',
   resumeUrl: '/gallery/Chayan_RESUME.pdf',
   avatarUrl: '/gallery/avatar.jpeg',
@@ -311,6 +311,6 @@ export const education = [
     degree: 'Higher Secondary (12th Grade)(ISC)',
     institution: 'Meghmala Roy Education Centre', // TODO: replace
     period: '2021 - 2023', // TODO: replace
-    details: 'Commerce without Mathamatics.',
+    details: 'Commerce without Mathematics.',
   },
 ]
